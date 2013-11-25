@@ -21,7 +21,7 @@
 	  <%= f.input :purchasing_id, :label => t('Purchasing'), :collection => Authentify::User.where(:status => 'active'), :include_blank => true %>
 	  <%= f.input :supplier_id, :label => t('Supplier'), :collection => SuppliedPartx.supplier_class.where(:active => true).order('id') %>
 	  <%= f.input :receiving_date, :label => t('Receiving Date'), :as => :string %>
-	  <%= f.input :brief_note, :label => t('Brief Note') %>
+	  <%= f.input :brief_note, :label => t('Brief Note'), :input_html => {:rows => 2} %>
 	  
 	  <%= link_to t('Back'), SUBURI + "/authentify/view_handler?index=0", :class => BUTTONS_CLS['action'] %>
 	  <%= f.button :submit, t('Save'), :class =>'btn btn-primary' %>  
