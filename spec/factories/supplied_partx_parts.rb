@@ -23,5 +23,10 @@ FactoryGirl.define do
     void false
     customer_id 1
     status_id 1
+    shipping_cost '9.9'
+    tax '9'
+    misc_cost '9.0'
+    total '29.99'
+    brief_note 'my note'
   end
 end

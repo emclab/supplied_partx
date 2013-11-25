@@ -30,6 +30,18 @@
   <%= number_with_precision(@part.unit_price, :precision => 2) %>
 </p>
 <p>
+  <b><%= t('Shipping Cost($)') %></b>
+  <%= number_with_precision(@part.shipping_cost, :precision => 2) if @part.shipping_cost.present? %>
+</p>
+<p>
+  <b><%= t('Tax($)') %></b>
+  <%= number_with_precision(@part.tax, :precision => 2) if @part.tax.present? %>
+</p>
+<p>
+  <b><%= t('Misc Cost($)') %></b>
+  <%= number_with_precision(@part.misc_cost, :precision => 2) if @part.misc_cost.present? %>
+</p>
+<p>
   <b><%= t('Total($)') %></b>
   <%= number_with_precision(@part.unit_price * @part.qty, :precision => 2) %>
 </p>

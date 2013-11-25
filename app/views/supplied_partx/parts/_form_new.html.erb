@@ -11,6 +11,9 @@
 	  <%= f.input :qty, :label => t('Qty') %>
 	  <%= f.input :unit, :label => t('Qty Unit'), :collection => @qty_unit, :include_blank => true %>
 	  <%= f.input :unit_price, :label => t('Unit Price($)') %>
+	  <%= f.input :shipping_cost, :label => t('Shipping Cost($)') %>
+	  <%= f.input :tax, :label => t('Tax($)') %>
+	  <%= f.input :misc_cost, :label => t('Misc Cost($)') %>
 	  <%= f.input :total, :label => t('Total($)'), :readonly => true %>
 	  <%= f.input :order_date, :label => t('Order Date'), :as => :string %>
       <%= f.input :received, :label => t("Received?"), :as => :boolean %>
@@ -18,6 +21,7 @@
 	  <%= f.input :purchasing_id, :label => t('Purchasing'), :collection => Authentify::User.where(:status => 'active'), :include_blank => true %>
 	  <%= f.input :supplier_id, :label => t('Supplier'), :collection => SuppliedPartx.supplier_class.where(:active => true).order('id') %>
 	  <%= f.input :receiving_date, :label => t('Receiving Date'), :as => :string %>
+	  <%= f.input :brief_note, :label => t('Brief Note') %>
 	  
 	  <%= link_to t('Back'), SUBURI + "/authentify/view_handler?index=0", :class => BUTTONS_CLS['action'] %>
 	  <%= f.button :submit, t('Save'), :class =>'btn btn-primary' %>  

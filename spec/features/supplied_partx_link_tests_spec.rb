@@ -72,7 +72,7 @@ describe "LinkTests" do
       page.should have_content('Log')
       
       visit new_part_path(:project_id => @proj.id)
-      save_and_open_page
+      #save_and_open_page
       page.should have_content('New Part')
     end
   end

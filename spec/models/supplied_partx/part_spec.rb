@@ -47,5 +47,15 @@ module SuppliedPartx
       c = FactoryGirl.build(:supplied_partx_part, :requested_by_id => 0)
       c.should_not be_valid
     end
+    
+    it "should reject 0 unit_price" do
+      c = FactoryGirl.build(:supplied_partx_part, :unit_price => 0)
+      c.should_not be_valid
+    end
+   
+    it "should reject 0 total" do
+      c = FactoryGirl.build(:supplied_partx_part, :total => 0)
+      c.should_not be_valid
+    end
   end
 end

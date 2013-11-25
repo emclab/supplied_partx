@@ -8,6 +8,10 @@ class CreateSuppliedPartxParts < ActiveRecord::Migration
       t.integer :qty
       t.string :unit
       t.decimal :unit_price, :precision => 10, :scale => 2
+      t.decimal :shipping_cost, :precision => 10, :scale => 2
+      t.decimal :tax, :precision => 10, :scale => 2
+      t.decimal :misc_cost, :precision => 10, :scale => 2
+      t.decimal :total, :precision => 10, :scale => 2
       t.integer :supplier_id
       t.date :order_date
       t.date :receiving_date
@@ -22,6 +26,7 @@ class CreateSuppliedPartxParts < ActiveRecord::Migration
       t.boolean :void, :default => false
       t.integer :customer_id
       t.integer :status_id
+      t.text :brief_note
 
       t.timestamps
     end
