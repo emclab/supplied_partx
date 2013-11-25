@@ -1,0 +1,34 @@
+<% if false %>
+  <%= render inline: ERB.new(@erb_code).result(binding) %>
+  
+  <% else %>
+<%= simple_form_for @part do |f| %> 
+
+  <%= f.input :customer_name, :label => t('Customer'), :readonly => true, :input_html => {:value => @customer.name} %>
+  <%= f.input :project_name, :label => t('Project Name'), :readonly => true, :input_html => {:value => @project.name} %>
+  <%= f.input :name, :label => t('Part Name'), :readonly => readonly?(@part, 'part_name') %>  
+  <%= f.input :part_num, :label => t('Part#'), :readonly => readonly?(@part, 'part_num') %>
+  <%= f.input :spec, :label => t('Spec'), :input_html => {:rows => 3}, :readonly => readonly?(@part, 'spec') %>
+  <%= f.input :qty, :label => t('Qty'), :readonly => readonly?(@part, 'qty') %>
+  <%= f.input :unit, :label => t('Qty Unit'), :collection => @qty_unit, :readonly => readonly?(@part, 'unit') %>
+  <%= f.input :unit_price, :label => t('Unit Price($)'), :readonly => readonly?(@part, 'unit_price') %>
+  <%= f.input :total, :label => t('Total($)'), :readonly => true %>
+  <%= f.input :order_date, :label => t('Order Date'), :as => :string, :readonly => readonly?(@part, 'order_date') %>
+  <%= f.input :received, :label => t("Received?"), :as => :boolean unless readonly?(@part, 'received') %>
+  <%= f.input :received_noupdate, :label => t("Received?"), :readonly => true, :input_html => {:value => @part.received ? t('Yes') : t('No') } if readonly?(@part, 'received') %>
+  <%= f.input :status_id, :label => t('Supplying Status'), :collection => Commonx::MiscDefinition.where(:for_which => 'part_purchasing_status') unless readonly?(@part, 'status_id') %>
+  <%= f.input :status_id, :label => t('Supplying Status'), :readonly => true, :input_html => {:value => @part.status.name} if readonly?(@part, 'status_id') %>
+  <%= f.input :purchasing_id, :label => t('Purchasing'), :collection => Authentify::User.where(:status => 'active'), :include_blank => true %>
+  <%= f.input :supplier_id, :label => t('Supplier'), :collection => SuppliedPartx.supplier_class.where(:active => true).order('id') %>
+  <%= f.input :receiving_date, :label => t('Receiving Date'), :as => :string %>
+  <%= f.input :actual_receiving_date, :label => t("Received Date"), :as => :string %> 
+  <%= f.input :void_noupdate, :label => t('Void'), :readonly => true, :required => false, :input_html => {:value => @part.void} if readonly?(@part, 'void') %>
+  <%= f.input :void, :label => t('Void'), :input_html => {:value => @part.void} unless readonly?(@part, 'void') %>
+  <%= f.input :state, :label => t('State'), :readonly => true, :input_html => {:value => t(@part.state)} %>
+  <%= f.input :requested_by_name, :label => t('Requested By'), :readonly => true, :input_html => {:value => @part.requested_by.name} %>
+	  
+  <%= link_to t('Back'), SUBURI + "/authentify/view_handler?index=0", :class => BUTTONS_CLS['action'] %>
+  <%= f.button :submit, t('Save'), :class => BUTTONS_CLS['action'] %>  
+<% end %>  
+
+<% end %>

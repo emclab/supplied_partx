@@ -1,0 +1,86 @@
+<% if false %>
+  <%= render inline: ERB.new(@erb_code).result(binding) %>
+  
+  <% else %>
+<div id="main_body">
+<h4><%=t('Part Info') %></h4>
+
+<p>
+  <b><%= t('Project Name') %></b>
+  <%= @part.project.name %>
+</p>
+<p>
+  <b><%= t('Name') %></b>
+  <%= @part.name %>
+</p>
+<p>
+  <b><%= t('Part#') %></b>
+  <%= @part.part_num %>
+</p>
+<p>
+  <b><%= t('Spec') %></b>
+  <%= @part.spec %>
+</p>
+<p>
+  <b><%= t('Qty/Unit') %></b>
+  <%= @part.qty %>/<%=@part.unit %>
+</p>
+<p>
+  <b><%= t('Unit Price($)') %></b>
+  <%= number_with_precision(@part.unit_price, :precision => 2) %>
+</p>
+<p>
+  <b><%= t('Total($)') %></b>
+  <%= number_with_precision(@part.unit_price * @part.qty, :precision => 2) %>
+</p>
+<p>
+  <b><%= t('Purchasing Status') %></b>
+  <%= @part.status.name if @part.status_id.present? %>
+</p>
+<p>
+  <b><%= t('Supplier') %></b>
+  <%= @part.supplier.name if @part.supplier_id.present? %>
+</p>
+<p>
+  <b><%= t('Order Date') %></b>
+  <%= @part.order_date.strftime('%Y/%m/%d') if @part.order_date.present? %>
+</p>
+<p>
+  <b><%= t('Receiving Date') %></b>
+  <%= @part.receiving_date.strftime('%Y/%m/%d') if @part.receiving_date.present? %>
+</p>
+<p>
+  <b><%= t('Acutal Receiving Date') %></b>
+  <%= @part.actual_receiving_date.strftime('%Y/%m/%d') if @part.actual_receiving_date.present? %>
+</p>
+<p>
+  <b><%= t('Received?') %></b>
+  <%= @part.received ? t('Yes') : t('No') %>
+</p>
+<p>
+  <b><%= t('Void') %></b>
+  <%= @part.void ? t('Yes') : t('No') %>
+</p>
+
+<p>
+  <b><%= t('Requested By') %></b>
+  <%= @part.requested_by.name %>
+</p>
+<p>
+  <b><%= t('Last Updated By') %></b>
+  <%= @part.last_updated_by.name %>
+</p>
+<p>
+  <b>LOG：</b>
+  <% Commonx::Log.where('resource_id = ? AND resource_name = ?', @part.id, params[:controller].sub('/', '_')).order("created_at DESC").each do |t| %>
+    <li><%= t.created_at.strftime("%Y/%m/%d") %>,&nbsp; <%= t.last_updated_by.name %>,&nbsp; <%= t.log %> </li>
+  <% end %>
+</p>
+
+  <%= link_to t('Back'), SUBURI + "/authentify/view_handler?index=0", :id => 'close', :class => BUTTONS_CLS['action'] %>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<%= link_to t('New Log'), SUBURI + commonx.new_log_path(:resource_id => @part.id, :resource_name => params[:controller], :subaction => 'part_purchasing', :format => :js), :remote => true, 
+                          :id => 'new_log_link', :class => BUTTONS_CLS['action'] if has_action_right?('create_part_purchasing', 'commonx/logs') %>    	
+</div>
+
+<% end %>

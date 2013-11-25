@@ -1,0 +1,41 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+  
+zh-CN:
+  
+  #Partx
+  Successfully Saved! : '信息已保存！'
+  Successfully Updated! : '信息已更新！'
+  Data Error. Not Saved! : '数据错误。 信息无法保存！'
+  Data Error. Not Updated! : '数据错误。信息无法更新！'
+  Duplicate Product Name : '同一项目外购件不能重名！'
+  Parts  : '外购件一览'
+  New Part  : '新外购件'
+  Update Part : '更新外购件信息'
+  Show Part : '外购件信息'
+  'Part Name'  : '外购件名称：'
+  Part Name : '外购件名称'
+  'Short Name' : '简称：'
+  Project Name : '项目名称'
+  Customer Name : '客户'
+  Customer : '客户'
+  Total($) : '总额（￥）'
+  'Order Date' : '订购日期：'
+  'Received?' : '到货'
+  Receiving Date : '到货日期'
+  Actual Receiving Date : '实际到货日期'
+  'Unit Price($)' : '单价（￥）'
+  Unit Pirce : '单价'
+  Unit : '单位'
+  Qty : '数量'
+  Spec : '规格'
+  'Part#' : '产品#'
+  Supplying Status : '外购状态'
+  Supplier : '供应商'
+  Last Updated By         : '更改'  
+  Requested By : '申请'
+  Yes : '是'
+  No  : '否'
+  yes : '是'
+  no  : '否'
+
