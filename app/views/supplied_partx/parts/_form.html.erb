@@ -1,4 +1,4 @@
-<% if false %>
+<% if @view_in_config && @erb_code %>
   <%= render inline: ERB.new(@erb_code).result(binding) %>
   
   <% else %>
@@ -6,7 +6,7 @@
 
   <%= f.input :customer_name, :label => t('Customer'), :readonly => true, :input_html => {:value => @customer.name} %>
   <%= f.input :project_name, :label => t('Project Name'), :readonly => true, :input_html => {:value => @project.name} %>
-  <%= f.input :name, :label => t('Part Name'), :readonly => readonly?(@part, 'part_name') %>  
+  <%= f.input :name, :label => t('Part Name'), :readonly => readonly?(@part, 'name') %>  
   <%= f.input :part_num, :label => t('Part#'), :readonly => readonly?(@part, 'part_num') %>
   <%= f.input :spec, :label => t('Spec'), :input_html => {:rows => 3}, :readonly => readonly?(@part, 'spec') %>
   <%= f.input :qty, :label => t('Qty'), :readonly => readonly?(@part, 'qty') %>
@@ -21,8 +21,10 @@
   <%= f.input :received_noupdate, :label => t("Received?"), :readonly => true, :input_html => {:value => @part.received ? t('Yes') : t('No') } if readonly?(@part, 'received') %>
   <%= f.input :status_id, :label => t('Supplying Status'), :collection => Commonx::MiscDefinition.where(:for_which => 'part_purchasing_status') unless readonly?(@part, 'status_id') %>
   <%= f.input :status_id, :label => t('Supplying Status'), :readonly => true, :input_html => {:value => @part.status.name} if readonly?(@part, 'status_id') %>
-  <%= f.input :purchasing_id, :label => t('Purchasing'), :collection => Authentify::User.where(:status => 'active'), :include_blank => true %>
-  <%= f.input :supplier_id, :label => t('Supplier'), :collection => SuppliedPartx.supplier_class.where(:active => true).order('id') %>
+  <%= f.input :purchasing_id, :label => t('Purchasing'), :collection => Authentify::User.where(:status => 'active'), :include_blank => true unless readonly?(@part, 'purchasing_id') %>
+  <%= f.input :purchasing_name, :label => t('Purchasing'), :input_html => {:value => @part.purchasing.name} if @part.purchasing_id.present? && readonly?(@part, 'purchasing_id') %>
+  <%= f.input :supplier_id, :label => t('Supplier'), :collection => SuppliedPartx.supplier_class.where(:active => true).order('id') unless readonly?(@part, 'supplier_id') %>
+  <%= f.input :supplier_name, :label => t('Supplier'), :input_html => {:value => @part.supplier.name} if @part.supplier_id.present? && readonly?(@part, 'supplier_id') %>
   <%= f.input :receiving_date, :label => t('Receiving Date'), :as => :string %>
   <%= f.input :actual_receiving_date, :label => t("Received Date"), :as => :string %> 
   <%= f.input :void_noupdate, :label => t('Void'), :readonly => true, :required => false, :input_html => {:value => @part.void} if readonly?(@part, 'void') %>

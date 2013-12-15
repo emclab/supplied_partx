@@ -52,10 +52,21 @@ module SuppliedPartx
       c = FactoryGirl.build(:supplied_partx_part, :unit_price => 0)
       c.should_not be_valid
     end
+    
+    it "should reject nil unit_price" do
+      c = FactoryGirl.build(:supplied_partx_part, :unit_price => nil)
+      c.should_not be_valid
+    end
    
     it "should reject 0 total" do
       c = FactoryGirl.build(:supplied_partx_part, :total => 0)
       c.should_not be_valid
     end
+    
+    it "should reject nil total" do
+      c = FactoryGirl.build(:supplied_partx_part, :total => nil)
+      c.should_not be_valid
+    end
+    
   end
 end

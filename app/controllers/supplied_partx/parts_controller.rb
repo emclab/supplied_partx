@@ -11,14 +11,14 @@ module SuppliedPartx
       @parts = @parts.where(:customer_id => @customer.id) if @customer
       @parts = @parts.where(:project_id => @project.id) if @project       
       @parts = @parts.page(params[:page]).per_page(@max_pagination) 
-      @erb_code = find_config_const('part_index_view', 'supplied_partx_parts')
+      @erb_code = find_config_const('part_index_view', 'supplied_partx')
     end
   
     def new
       @title = t('New Part')
       @part = SuppliedPartx::Part.new()
       @qty_unit = find_config_const('piece_unit').split(',').map(&:strip)
-      @erb_code = find_config_const('part_new_view', 'supplied_partx_parts')
+      @erb_code = find_config_const('part_new_view', 'supplied_partx')
     end
   
     def create
@@ -40,7 +40,7 @@ module SuppliedPartx
       @title = t('Update Part')
       @part = SuppliedPartx::Part.find_by_id(params[:id])
       @qty_unit = find_config_const('piece_unit').split(',').map(&:strip)
-      @erb_code = find_config_const('part_edit_view', 'supplied_partx_parts')
+      @erb_code = find_config_const('part_edit_view', 'supplied_partx')
     end
   
     def update
@@ -57,7 +57,7 @@ module SuppliedPartx
     def show
       @title = t('Part Info')
       @part = SuppliedPartx::Part.find_by_id(params[:id])
-      @erb_code = find_config_const('part_show_view', 'supplied_partx_parts')
+      @erb_code = find_config_const('part_show_view', 'supplied_partx')
     end
     
     protected

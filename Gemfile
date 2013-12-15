@@ -15,6 +15,7 @@ gem 'commonx', :path => '../commonx'
 gem 'kustomerx', :path => '../kustomerx'
 gem 'heavy_machinery_projectx', :path => '../heavy_machinery_projectx'
 gem 'supplierx', :path => '../supplierx'
+gem 'searchx', :path => '../searchx'
 
 # Declare any dependencies that are still in development here instead of in
 # your gemspec. These might include edge Rails or gems from your path or

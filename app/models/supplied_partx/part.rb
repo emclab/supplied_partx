@@ -7,7 +7,7 @@ module SuppliedPartx
                     :as => :role_new
     attr_accessible :actual_receiving_date, :comment, :purchasing_id, :requested_by_id, :last_updated_by_id, :name, :order_date, :part_num, :project_id, :qty, :received,
                     :receiving_date, :spec, :state, :supplier_id, :unit, :unit_price, :void, :wfid, :customer_id, :status_id, :shipping_cost, :tax, :total, :misc_cost, :brief_note,
-                    :total, :void_nopudate, :received_noupdate, :customer_name,
+                    :total, :void_nopudate, :received_noupdate, :customer_name, :requested_by_name, :purchasing_name, :status_name, :supplier_name,
                     :as => :role_update
 
     attr_accessor   :project_id_s, :start_date_s, :end_date_s, :purchasing_id_s, :customer_id_s, :eng_id_s,
@@ -26,7 +26,7 @@ module SuppliedPartx
 
     validates :name, :presence => true, :uniqueness => {:scope => :project_id, :case_sensitive => false, :message => I18n.t('Duplicate Product Name') }
     validates_numericality_of :project_id, :customer_id, :qty, :status_id, :requested_by_id, :greater_than => 0, :only_integer => true    
-    validates :unit_price, :total, :numericality => { :greater_than => 0 }
+    validates :unit_price, :total, :presence => true, :numericality => { :greater_than => 0 }
     validates :unit, :spec, :presence => true
     
   end
