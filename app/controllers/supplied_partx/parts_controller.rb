@@ -24,9 +24,6 @@ module SuppliedPartx
     def create
       @part = SuppliedPartx::Part.new(params[:part], :as => :role_new)
       @part.last_updated_by_id = session[:user_id]
-      #@part.customer_id = @customer.id if @customer
-      #@part.customer_id = SuppliedPartx.project_class.find_by_id(@project.id).customer.id unless @customer
-      #@part.project_id = @project.id
       @part.requested_by_id = session[:user_id]
       if @part.save
         redirect_to URI.escape(SUBURI + "/authentify/view_handler?index=0&msg=Successfully Saved!")
