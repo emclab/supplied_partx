@@ -15,8 +15,7 @@ FactoryGirl.define do
     actual_receiving_date "2013-10-31"
     last_updated_by_id 1
     wfid "MyString"
-    comment "MyText"
-    state "MyString"
+    wf_state "fresh"
     purchasing_id 1
     requested_by_id 1
     received false

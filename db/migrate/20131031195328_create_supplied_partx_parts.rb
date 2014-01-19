@@ -8,32 +8,32 @@ class CreateSuppliedPartxParts < ActiveRecord::Migration
       t.integer :qty
       t.string :unit
       t.decimal :unit_price, :precision => 10, :scale => 2
-      t.decimal :shipping_cost, :precision => 10, :scale => 2
-      t.decimal :tax, :precision => 10, :scale => 2
-      t.decimal :misc_cost, :precision => 10, :scale => 2
-      t.decimal :total, :precision => 10, :scale => 2
+      t.integer :purchasing_id
       t.integer :supplier_id
       t.date :order_date
       t.date :receiving_date
-      t.date :actual_receiving_date
-      t.integer :last_updated_by_id
-      t.string :wfid
-      t.text :comment
-      t.string :state
-      t.integer :requested_by_id
-      t.integer :purchasing_id
       t.boolean :received, :default => false
+      t.integer :last_updated_by_id
+      t.timestamps
+      t.integer :requested_by_id
+      t.date :actual_receiving_date
+      t.string :wfid
+      t.string :wf_state
       t.boolean :void, :default => false
       t.integer :customer_id
       t.integer :status_id
       t.text :brief_note
-
-      t.timestamps
+      t.decimal :shipping_cost, :precision => 10, :scale => 2
+      t.decimal :tax, :precision => 10, :scale => 2
+      t.decimal :misc_cost, :precision => 10, :scale => 2
+      t.decimal :total, :precision => 10, :scale => 2
+      
     end
     
     add_index :supplied_partx_parts, :name
     add_index :supplied_partx_parts, :project_id
     add_index :supplied_partx_parts, :wfid
+    add_index :supplied_partx_parts, :wf_state
     add_index :supplied_partx_parts, :supplier_id
     add_index :supplied_partx_parts, :purchasing_id
     add_index :supplied_partx_parts, :requested_by_id

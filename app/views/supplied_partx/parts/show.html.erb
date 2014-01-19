@@ -73,7 +73,10 @@
   <b><%= t('Void') %></b>
   <%= @part.void ? t('Yes') : t('No') %>
 </p>
-
+<p>
+  <b><%= t('WF State') %>:</b>
+  <%= t(@part.wf_state) if @part.wf_state.present? %>
+</p>
 <p>
   <b><%= t('Requested By') %></b>
   <%= @part.requested_by.name %>
@@ -81,6 +84,13 @@
 <p>
   <b><%= t('Last Updated By') %></b>
   <%= @part.last_updated_by.name %>
+</p>
+<% if @part.wf_state.present? %>
+  <b><%=t('Workflow History')%>:</b>
+  <% StateMachineLogx::Log.where('resource_id = ? AND resource_string = ?', @part.id, params[:controller]).order('created_at DESC').each do |t| %>
+    <li><%= t.created_at.strftime("%Y/%m/%d") %>,&nbsp; <%= t.action_by_name %>,&nbsp; <%=t(t.from)%>,&nbsp; <%=t(t.event.capitalize) %>,&nbsp; <%=t(t.to)%>,&nbsp;<%= t.comment %> </li>
+  <% end %>
+<% end %>	
 </p>
 <p>
   <b>LOG：</b>
