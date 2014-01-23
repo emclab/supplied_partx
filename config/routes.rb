@@ -9,7 +9,7 @@ SuppliedPartx::Engine.routes.draw do
     end
 
 #=begin    
-    workflow_routes = Authentify::AuthentifyUtility.find_config_const('part_workflow_routes', 'supplied_partx')
+    workflow_routes = Authentify::AuthentifyUtility.find_config_const('part_wf_route', 'supplied_partx')
     if Authentify::AuthentifyUtility.find_config_const('wf_route_in_config') == 'true' && workflow_routes.present?
       eval(workflow_routes) 
     else
@@ -18,12 +18,14 @@ SuppliedPartx::Engine.routes.draw do
         put :submit
         put :enter_receiving_date
         put :checkout_from_warehouse
-        put :enter_pur_data
-        put :vp_accept
-        put :vp_reject
+        put :enter_purchasing_data
+        put :manager_accept
+        put :manager_reject
         put :ceo_accept
         put :ceo_reject
         put :ceo_rewind
+        put :stamp
+        put :receive_delivery
         
       end
       

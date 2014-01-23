@@ -74,7 +74,7 @@ module SuppliedPartx
     validate :validate_wf_input_data, :if => 'wf_state.present?' 
     
     def validate_wf_input_data
-      wf = Authentify::AuthentifyUtility.find_config_const('validation_part_' + self.wf_state, 'supplied_partx')
+      wf = Authentify::AuthentifyUtility.find_config_const('validate_part_' + self.wf_state, 'supplied_partx')
       if Authentify::AuthentifyUtility.find_config_const('wf_validate_in_config') == 'true' && wf.present? 
         eval(wf) if wf.present?
       else
