@@ -52,7 +52,7 @@ describe "LinkTests" do
         def receive_delivery
           wf_common_action('stamped', 'delivered', 'receive_delivery')
         end "
-      FactoryGirl.create(:engine_config, :engine_name => 'supplied_partx', :engine_version => nil, :argument_name => 'part_submit', 
+      FactoryGirl.create(:engine_config, :engine_name => 'supplied_partx', :engine_version => nil, :argument_name => 'part_submit_inline', 
                          :argument_value => "<%= f.input :receiving_date, :label => t('Receiving Date') , :as => :string %>")
       FactoryGirl.create(:engine_config, :engine_name => 'supplied_partx', :engine_version => nil, :argument_name => 'validate_part_submit', 
                          :argument_value => "validates :receiving_date, :presence => true                                             
