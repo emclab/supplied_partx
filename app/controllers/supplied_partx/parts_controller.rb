@@ -41,7 +41,7 @@ module SuppliedPartx
       @part = SuppliedPartx::Part.find_by_id(params[:id])
       @qty_unit = find_config_const('piece_unit').split(',').map(&:strip)
       @erb_code = find_config_const('part_edit_view', 'supplied_partx')
-      if @part.wf_state.present? && @part.current_state != :fresh
+      if @part.wf_state.present? && @part.current_state != :initial_state
         redirect_to URI.escape(SUBURI + "/authentify/view_handler?index=0&msg=NO Update. Record Being Processed!")
       end
     end
@@ -66,7 +66,7 @@ module SuppliedPartx
     
     def list_open_process  
       index()
-      @parts = return_open_process(@parts, 3)  #3 is number of final state
+      @parts = return_open_process(@parts, find_config_const('part_wf_final_state_string', 'supplied_partx'))  #
     end
     
     protected

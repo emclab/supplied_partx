@@ -40,6 +40,7 @@ module SuppliedPartx
           wf_common_action('stamped', 'delivered', 'receive_delivery')
         end "
       FactoryGirl.create(:engine_config, :engine_name => 'supplied_partx', :engine_version => nil, :argument_name => 'part_wf_action_def', :argument_value => wf)
+      FactoryGirl.create(:engine_config, :engine_name => 'supplied_partx', :engine_version => nil, :argument_name => 'part_wf_final_state_string', :argument_value => 'from_warehouse, delivered, rejected')
       FactoryGirl.create(:engine_config, :engine_name => '', :engine_version => nil, :argument_name => 'wf_pdef_in_config', :argument_value => 'true')
       FactoryGirl.create(:engine_config, :engine_name => '', :engine_version => nil, :argument_name => 'wf_route_in_config', :argument_value => 'true')
       FactoryGirl.create(:engine_config, :engine_name => '', :engine_version => nil, :argument_name => 'wf_validate_in_config', :argument_value => 'true')
@@ -196,7 +197,7 @@ module SuppliedPartx
         :sql_code => "SuppliedPartx::Part.where(:void => false).order('created_at DESC')")
         session[:user_id] = @u.id
         session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
-        task = FactoryGirl.create(:supplied_partx_part, :project_id => @proj.id, :created_at => 50.days.ago, :wf_state => 'fresh')
+        task = FactoryGirl.create(:supplied_partx_part, :project_id => @proj.id, :created_at => 50.days.ago, :wf_state => 'initial_state')
         task1 = FactoryGirl.create(:supplied_partx_part, :project_id => @proj.id, :name => 'a new task', :wf_state => 'rejected')
         task2 = FactoryGirl.create(:supplied_partx_part, :project_id => @proj.id, :name => 'a new task1', :wf_state => 'enter_receiving_date')
         task3 = FactoryGirl.create(:supplied_partx_part, :project_id => @proj.id, :name => 'a new task23', :wf_state => 'ceo_reviewing')

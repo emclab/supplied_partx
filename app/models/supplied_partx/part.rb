@@ -8,8 +8,8 @@ module SuppliedPartx
       wf = Authentify::AuthentifyUtility.find_config_const('part_wf_pdef', 'supplied_partx')
       if Authentify::AuthentifyUtility.find_config_const('wf_pdef_in_config') == 'true' && wf.present?
         eval(wf) if wf.present? && self.wf_state.present 
-      else   
-        state :fresh do
+      elsif Rails.env.test?   
+        state :initial_state do
           event :submit, :transitions_to => :entering_receiving_date
         end
         state :entering_receiving_date do
@@ -26,7 +26,7 @@ module SuppliedPartx
         state :ceo_reviewing do
           event :ceo_approve, :transitions_to => :approved
           event :ceo_reject, :transitions_to => :rejected
-          event :ceo_rewind, :transitions_to => :fresh
+          event :ceo_rewind, :transitions_to => :initial_state
         end
         state :approved do
           event :stamp, :transitions_to => :stamped
