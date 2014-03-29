@@ -27,5 +27,6 @@ FactoryGirl.define do
     misc_cost '9.0'
     total '29.99'
     brief_note 'my note'
+    manufacturer_id 1
   end
 end

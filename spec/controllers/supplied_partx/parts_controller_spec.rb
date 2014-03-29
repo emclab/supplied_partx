@@ -59,6 +59,7 @@ module SuppliedPartx
       @pur_sta = FactoryGirl.create(:commonx_misc_definition, 'for_which' => 'purchasing_part')
       @cust = FactoryGirl.create(:kustomerx_customer) 
       @proj = FactoryGirl.create(:heavy_machinery_projectx_project, :customer_id => @cust.id) 
+      @mfg = FactoryGirl.create(:manufacturerx_manufacturer)
     end
     
     render_views
@@ -185,7 +186,8 @@ module SuppliedPartx
         session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
         supplier = FactoryGirl.create(:supplierx_supplier)
         status = FactoryGirl.create(:commonx_misc_definition, :for_which => 'part_purchasing_status')
-        task = FactoryGirl.create(:supplied_partx_part, :project_id => @proj.id,  :purchasing_id => @u.id, :supplier_id => supplier.id, :status_id => status.id)
+        task = FactoryGirl.create(:supplied_partx_part, :project_id => @proj.id,  :purchasing_id => @u.id, :supplier_id => supplier.id, :status_id => status.id, 
+                                  :manufacturer_id => @mfg.id)
         get 'show', {:use_route => :supplied_partx, :id => task.id}
         response.should be_success
       end

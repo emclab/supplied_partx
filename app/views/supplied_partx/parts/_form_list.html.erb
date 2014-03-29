@@ -16,6 +16,7 @@
 			<th><%= t('Total($)') %></th>
 			<th><%= t('Order Date') %></th>
 			<th><%= t('Supplier') %></th>
+			<th><%= t('Manufacturer') %></th>
 			<th><%= t('Receiving Date') %></th>
 			<th><%= t('Received') %></th>
 			<th><%= t('Purchasing') %></th>
@@ -55,6 +56,7 @@
 		  	<% else %>
 		  	  <td><%= link_to r.supplier.short_name, SUBURI + "/authentify/view_handler?index=1&url=#{SUBURI + CGI::escape(eval(SuppliedPartx.show_supplier_path))}" if r.supplier_id.present? %></td>
 		  	<% end %>
+		    <td><%= prt(r, 'manufacturer.short_name') if r.manufacturer_id.present? %></td>
 		  	<td><%= r.receiving_date.strftime("%Y/%m/%d") if r.receiving_date.present? %></td>
 			<td><%= t(prt(r, :received).to_s) %></td>
 			<td><%= prt(r, 'purchasing.name') if r.purchasing_id.present? %></td> 

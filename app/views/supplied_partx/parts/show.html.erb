@@ -54,6 +54,10 @@
   <%= @part.supplier.name if @part.supplier_id.present? %>
 </p>
 <p>
+  <b><%= t('Manufacturer') %></b>
+  <%= @part.manufacturer.name if @part.manufacturer_id.present? %>
+</p>
+<p>
   <b><%= t('Order Date') %></b>
   <%= @part.order_date.strftime('%Y/%m/%d') if @part.order_date.present? %>
 </p>

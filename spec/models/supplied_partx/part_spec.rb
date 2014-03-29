@@ -32,6 +32,7 @@ module SuppliedPartx
       c = FactoryGirl.build(:supplied_partx_part, :project_id => 0)
       c.should_not be_valid
     end
+    
 =begin    
     it "should reject nil status_id" do
       c = FactoryGirl.build(:supplied_partx_part, :status_id => nil)
@@ -65,6 +66,11 @@ module SuppliedPartx
 
     it "should allow nil total" do
       c = FactoryGirl.build(:supplied_partx_part, :total => nil)
+      c.should be_valid
+    end
+    
+    it "should take nil manufacturer_id" do
+      c = FactoryGirl.build(:supplied_partx_part, :manufacturer_id => nil)
       c.should be_valid
     end
 

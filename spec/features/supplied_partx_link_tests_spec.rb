@@ -95,6 +95,7 @@ describe "LinkTests" do
       @cust = FactoryGirl.create(:kustomerx_customer) 
       @supplier = FactoryGirl.create(:supplierx_supplier)
       @proj = FactoryGirl.create(:heavy_machinery_projectx_project, :customer_id => @cust.id) 
+      @mfg = FactoryGirl.create(:manufacturerx_manufacturer)
       
       visit '/'
       #save_and_open_page
@@ -103,7 +104,7 @@ describe "LinkTests" do
       click_button 'Login'
     end
     it "works! (now write some real specs)" do
-      task = FactoryGirl.create(:supplied_partx_part, :project_id => @proj.id, :supplier_id => @supplier.id)
+      task = FactoryGirl.create(:supplied_partx_part, :project_id => @proj.id, :supplier_id => @supplier.id, :manufacturer_id => @mfg.id)
       visit parts_path
       #save_and_open_page
       page.should have_content('Parts')
