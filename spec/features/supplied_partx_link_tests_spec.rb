@@ -119,10 +119,6 @@ describe "LinkTests" do
       #save_and_open_page
       page.should have_content('Log')
       
-      visit new_part_path(:project_id => @proj.id)
-      #save_and_open_page
-      page.should have_content('New Part')
-      
       visit parts_path
       save_and_open_page
       click_link 'Submit'
@@ -136,6 +132,15 @@ describe "LinkTests" do
       save_and_open_page
       click_link 'Open Process'
       page.should have_content('Parts')
+      
+      visit new_part_path(:project_id => @proj.id)
+      #save_and_open_page
+      page.should have_content('New Part')
+      fill_in 'part_name', :with => 'test'
+      fill_in 'part_qty', :with => 3
+      fill_in 'part_spec', :with => 'spec'
+      select('piece', :from => 'part_unit') 
+      click_button 'Save'
     end
   end
 end

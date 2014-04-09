@@ -58,7 +58,7 @@
 		  	<% end %>
 		    <td><%= prt(r, 'manufacturer.short_name') if r.manufacturer_id.present? %></td>
 		  	<td><%= r.receiving_date.strftime("%Y/%m/%d") if r.receiving_date.present? %></td>
-			<td><%= t(prt(r, :received).to_s) %></td>
+			<td><%= r.received ? t('Yes') : t('No') %></td>
 			<td><%= prt(r, 'purchasing.name') if r.purchasing_id.present? %></td> 
 			<td><%= prt(r, 'requested_by.name') if r.requested_by_id.present? %></td> 
 			<td><%= t(prt(r, :wf_state).humanize) if r.wf_state.present? %></td>    

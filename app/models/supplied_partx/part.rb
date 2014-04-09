@@ -45,6 +45,7 @@ module SuppliedPartx
     attr_accessible :actual_receiving_date, :purchasing_id, :requested_by_id, :last_updated_by_id, :name, :order_date, :part_num, :project_id, :qty, :received, :manufacturer_id,
                     :receiving_date, :spec, :wf_state, :supplier_id, :unit, :unit_price, :void, :wfid, :customer_id, :status_id, :shipping_cost, :tax, :total, :misc_cost,
                     :total, :brief_note,
+                    :customer_name, :project_name,
                     :as => :role_new
     attr_accessible :actual_receiving_date, :purchasing_id, :requested_by_id, :last_updated_by_id, :name, :order_date, :part_num, :project_id, :qty, :received, :manufacturer_id,
                     :receiving_date, :spec, :wf_state, :supplier_id, :unit, :unit_price, :void, :wfid, :customer_id, :status_id, :shipping_cost, :tax, :total, :misc_cost, :brief_note,
@@ -68,7 +69,7 @@ module SuppliedPartx
 
     validates :name, :presence => true, :uniqueness => {:scope => :project_id, :case_sensitive => false, :message => I18n.t('Duplicate Product Name') }
     validates_numericality_of :project_id, :customer_id, :qty, :requested_by_id, :greater_than => 0, :only_integer => true    
-    validates :unit, :spec, :presence => true
+    validates :unit, :spec, :qty, :presence => true
     validates :unit_price, :numericality => { :greater_than => 0 }, :if => 'unit_price.present?'
     validates :total, :numericality => { :greater_than => 0 }, :if => 'total.present?'
     validates_numericality_of :manufacturer_id, :greater_than => 0, :only_integer => true, :if => 'manufacturer_id.present?'
