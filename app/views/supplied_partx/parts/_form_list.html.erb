@@ -19,7 +19,7 @@
 			<th><%= t('Manufacturer') %></th>
 			<th><%= t('Receiving Date') %></th>
 			<th><%= t('Received') %></th>
-			<th><%= t('Purchasing') %></th>
+			<th><%= t('Purchaser') %></th>
 			<th><%= t('Requested By') %></th>
 			<th><%= t('WF State') %></th>
 			<th></th>
@@ -48,8 +48,8 @@
 			<td><%= prt(r, :part_num) %></td>
 			<td><%= prt(r, :spec) %></td>
 			<td><%= prt(r, :qty) %>/<%= prt(r, :unit) %></td>
-			<td><%= number_with_precision(prt(r, :unit_price), :precision => 2) %></td>
-			<td><%= number_with_precision(r.unit_price * r.qty, :precision => 2) %></td>
+			<td><%= number_with_precision(prt(r, :unit_price), :precision => 2) if r.unit_price.present? %></td>
+			<td><%= number_with_precision(r.unit_price * r.qty, :precision => 2) if r.unit_price.present? %></td>
 			<td><%= r.order_date.strftime("%Y/%m/%d") if r.order_date.present? %></td>
 			<% unless has_action_right?('show', SuppliedPartx.supplier_class.to_s.underscore.pluralize) %>
 		  	  <td><%= prt(r, 'supplier.short_name') if r.supplier_id.present? %></td>
@@ -60,9 +60,8 @@
 		  	<td><%= r.receiving_date.strftime("%Y/%m/%d") if r.receiving_date.present? %></td>
 			<td><%= t(prt(r, :received).to_s) %></td>
 			<td><%= prt(r, 'purchasing.name') if r.purchasing_id.present? %></td> 
-			<td><%= prt(r, 'requested_by.name') %></td> 
+			<td><%= prt(r, 'requested_by.name') if r.requested_by_id.present? %></td> 
 			<td><%= t(prt(r, :wf_state).humanize) if r.wf_state.present? %></td>    
-			<td><%= link_to t('Edit'), SUBURI + "/authentify/view_handler?index=1&url=#{edit_part_path(r, :parent_record_id => r.project_id, :parent_resource => SuppliedPartx.project_class.to_s.underscore.pluralize)}", :class => BUTTONS_CLS['action']  if (r.wf_state.nil? or r.wf_state = 'initial_state') && has_action_right?('update', params[:controller], r) %></td>
 			<td><%= link_to t('Submit'), SUBURI + "/authentify/view_handler?index=1&url=#{CGI.escape event_action_part_path(r, :wf_event => 'submit', :resource_id => r.id, :resource_string => params[:controller])}", :class => BUTTONS_CLS['action']  if r.wf_state.present? && r.wf_state == 'initial_state' && has_action_right?('submit', params[:controller], r) %></td>
 			<td><%= link_to t('Enter Date'), SUBURI + "/authentify/view_handler?index=1&url=#{CGI.escape event_action_part_path(r, :wf_event => 'enter_receiving_date', :resource_id => r.id, :resource_string => params[:controller])}", :class => BUTTONS_CLS['action']  if r.wf_state.present? && r.wf_state == 'entering_receiving_date' && has_action_right?('enter_receiving_date', params[:controller], r) %></td>
 			<td><%= link_to t('From Warehouse'), SUBURI + "/authentify/view_handler?index=1&url=#{CGI.escape event_action_part_path(r, :wf_event => 'enter_receiving_date', :resource_id => r.id, :resource_string => params[:controller])}", :class => BUTTONS_CLS['action']  if r.wf_state.present? && r.wf_state == 'entering_receiving_date' && has_action_right?('enter_receiving_date', params[:controller], r) %></td>
@@ -73,6 +72,7 @@
 			<td><%= link_to t('CEO') + t('Reject'), SUBURI + "/authentify/view_handler?index=1&url=#{CGI.escape event_action_part_path(r, :wf_event => 'ceo_reject', :resource_id => r.id, :resource_string => params[:controller])}", :class => BUTTONS_CLS['action']  if r.wf_state.present? && r.wf_state == 'ceo_reviewing' && has_action_right?('ceo_reviewing', params[:controller], r) %></td>
 		    <td><%= link_to t('CEO') + t('Rewind'), SUBURI + "/authentify/view_handler?index=1&url=#{CGI.escape event_action_part_path(r, :wf_event => 'ceo_rewind', :resource_id => r.id, :resource_string => params[:controller])}", :class => BUTTONS_CLS['action']  if r.wf_state.present? && r.wf_state == 'ceo_reviewing' && has_action_right?('ceo_reviewing', params[:controller], r) %></td>
 		    <td><%= link_to t('Recieve Delivery'), SUBURI + "/authentify/view_handler?index=1&url=#{CGI.escape event_action_part_path(r, :wf_event => 'receive_delivery', :resource_id => r.id, :resource_string => params[:controller])}", :class => BUTTONS_CLS['action']  if r.wf_state.present? && r.wf_state == 'approved' && has_action_right?('receive_delivery', params[:controller], r) %></td>
+		    <td><%= link_to t('Edit'), SUBURI + "/authentify/view_handler?index=1&url=#{CGI::escape edit_part_path(r, :parent_record_id => r.project_id, :parent_resource => SuppliedPartx.project_class.to_s.underscore.pluralize)}", :class => BUTTONS_CLS['action']  if (r.wf_state.nil? or r.wf_state = 'initial_state') && has_action_right?('update', params[:controller], r) %></td>			
 		  </tr>
 		<% end %>
 	</table>
@@ -82,6 +82,7 @@
 	    <th>
 	    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	    	<%= link_to t('Back'), SUBURI + "/authentify/view_handler?index=0", :class => BUTTONS_CLS['action']  %>
+	    	<%= link_to t('New Purchasing'), SUBURI + "/authentify/view_handler?index=1&url=#{CGI::escape new_part_path(:project_id => @project.id, :parent_record_id => @project.id, :parent_resource => SuppliedPartx.project_class.to_s.underscore.pluralize)}", :class => BUTTONS_CLS['action']  if @project && has_action_right?('create', params[:controller], @project) %>
 	    	<%= link_to t('Open Process'), SUBURI + "/authentify/view_handler?index=1&url=#{list_open_process_parts_path(:project_id => @project.id, :parent_record_id => @project.id, :parent_resource => SuppliedPartx.project_class.to_s.underscore.pluralize)}", :class => BUTTONS_CLS['action']  if @project && has_action_right?('list_open_process', params[:controller], @project) %>
 	    	<%= link_to t('Open Process'), SUBURI + "/authentify/view_handler?index=1&url=#{list_open_process_parts_path}", :class => BUTTONS_CLS['action']  if @project.nil? && has_action_right?('list_open_process', params[:controller], @project) %>
 	    

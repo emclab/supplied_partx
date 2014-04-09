@@ -69,8 +69,8 @@ module SuppliedPartx
     validates :name, :presence => true, :uniqueness => {:scope => :project_id, :case_sensitive => false, :message => I18n.t('Duplicate Product Name') }
     validates_numericality_of :project_id, :customer_id, :qty, :requested_by_id, :greater_than => 0, :only_integer => true    
     validates :unit, :spec, :presence => true
-    validates :unit_price, :presence => true, :numericality => { :greater_than => 0 }, :if => 'unit_price.present?'
-    validates :total, :presence => true, :numericality => { :greater_than => 0 }, :if => 'total.present?'
+    validates :unit_price, :numericality => { :greater_than => 0 }, :if => 'unit_price.present?'
+    validates :total, :numericality => { :greater_than => 0 }, :if => 'total.present?'
     validates_numericality_of :manufacturer_id, :greater_than => 0, :only_integer => true, :if => 'manufacturer_id.present?'
     #for workflow input validation  
     validate :validate_wf_input_data, :if => 'wf_state.present?' 

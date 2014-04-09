@@ -9,7 +9,7 @@ FactoryGirl.define do
     qty 1
     unit "MyString"
     unit_price "9.99"
-    supplier_id 1
+    #supplier_id 1
     order_date "2013-10-31"
     receiving_date "2013-10-31"
     actual_receiving_date "2013-10-31"
@@ -21,12 +21,12 @@ FactoryGirl.define do
     received false
     void false
     customer_id 1
-    status_id 1
+    #status_id 1
     shipping_cost '9.9'
     tax '9'
     misc_cost '9.0'
     total '29.99'
     brief_note 'my note'
-    manufacturer_id 1
+    #manufacturer_id 1
   end
 end

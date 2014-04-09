@@ -20,7 +20,8 @@
   <%= f.input :received, :label => t("Received?"), :as => :boolean unless readonly?(@part, 'received') %>
   <%= f.input :received_noupdate, :label => t("Received?"), :readonly => true, :input_html => {:value => @part.received ? t('Yes') : t('No') } if readonly?(@part, 'received') %>
   <%= f.input :status_id, :label => t('Supplying Status'), :collection => Commonx::MiscDefinition.where(:for_which => 'part_purchasing_status') unless readonly?(@part, 'status_id') %>
-  <%= f.input :status_id, :label => t('Supplying Status'), :readonly => true, :input_html => {:value => @part.status.name} if readonly?(@part, 'status_id') %>
+  <%= f.input :status_name, :label => t('Supplying Status'), :readonly => true, :input_html => {:value => @part.status.name} if @part.status_id.present? && readonly?(@part, 'status_id') %>
+  <%= f.input :status_name, :label => t('Supplying Status'), :readonly => true, :input_html => {:value => ''} if @part.status_id.blank? && readonly?(@part, 'status_id') %>
   <%= f.input :purchasing_id, :label => t('Purchasing'), :collection => Authentify::User.where(:status => 'active'), :include_blank => true unless readonly?(@part, 'purchasing_id') %>
   <%= f.input :purchasing_name, :label => t('Purchasing'),  :readonly => true, :input_html => {:value => @part.purchasing.name} if @part.purchasing_id.present? && readonly?(@part, 'purchasing_id') %>
   <%= f.input :supplier_id, :label => t('Supplier'), :collection => SuppliedPartx.supplier_class.where(:active => true).order('id') unless readonly?(@part, 'supplier_id') %>
@@ -32,7 +33,7 @@
   <%= f.input :void_noupdate, :label => t('Void'), :readonly => true, :required => false, :input_html => {:value => @part.void} if readonly?(@part, 'void') %>
   <%= f.input :void, :label => t('Void'), :input_html => {:value => @part.void} unless readonly?(@part, 'void') %>
   <%= f.input :state, :label => t('WF State'), :readonly => true, :input_html => {:value => t(@part.wf_state)} %>
-  <%= f.input :requested_by_name, :label => t('Requested By'), :readonly => true, :input_html => {:value => @part.requested_by.name} %>
+  <%= f.input :requested_by_name, :label => t('Requested By'), :readonly => true, :input_html => {:value => @part.requested_by.name} if @part.requested_by_id.present? %>
   <%= f.input :brief_note, :label => t('Brief Note'), :readonly => readonly?(@part, 'brief_note'), :input_html => {:rows => 2} %>
     
   <%= link_to t('Back'), SUBURI + "/authentify/view_handler?index=0", :class => BUTTONS_CLS['action'] %>
