@@ -20,7 +20,7 @@
 	  <%= f.input :order_date, :label => t('Order Date'), :as => :string %>
       <%= f.input :received, :label => t("Received?"), :as => :boolean %>
 	  <%= f.input :status_id, :label => t('Supplying Status'), :collection => Commonx::MiscDefinition.where(:for_which => 'part_purchasing_status'), :include_blank => true %>
-	  <%= f.input :purchasing_id, :label => t('Purchasing'), :collection => Authentify::User.where(:status => 'active'), :include_blank => true %>
+	  <%= f.input :purchasing_id, :label => t('Purchaser'), :collection => Authentify::User.where(:status => 'active'), :include_blank => true %>
 	  <%= f.input :supplier_id, :label => t('Supplier'), :collection => SuppliedPartx.supplier_class.where(:active => true).order('id') %>
 	  <%= f.input :manufacturer_id, :label => t('Manufacturer'), :collection => SuppliedPartx.manufacturer_class.where(:active => true).order('id') %>
 	  <%= f.input :receiving_date, :label => t('Receiving Date'), :as => :string %>
