@@ -32,7 +32,7 @@
   <%= f.input :actual_receiving_date, :label => t("Received Date"), :as => :string %> 
   <%= f.input :void_noupdate, :label => t('Void'), :readonly => true, :required => false, :input_html => {:value => @part.void} if readonly?(@part, 'void') %>
   <%= f.input :void, :label => t('Void'), :input_html => {:value => @part.void} unless readonly?(@part, 'void') %>
-  <%= f.input :state, :label => t('WF State'), :readonly => true, :input_html => {:value => t(@part.wf_state)} %>
+  <%= f.input :wf_state, :label => t('WF State'), :readonly => true, :input_html => {:value => t(@part.wf_state)} %>
   <%= f.input :requested_by_name, :label => t('Requested By'), :readonly => true, :input_html => {:value => @part.requested_by.name} if @part.requested_by_id.present? %>
   <%= f.input :brief_note, :label => t('Brief Note'), :readonly => readonly?(@part, 'brief_note'), :input_html => {:rows => 2} %>
     

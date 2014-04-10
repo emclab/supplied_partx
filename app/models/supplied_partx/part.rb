@@ -49,7 +49,7 @@ module SuppliedPartx
                     :as => :role_new
     attr_accessible :actual_receiving_date, :purchasing_id, :requested_by_id, :last_updated_by_id, :name, :order_date, :part_num, :project_id, :qty, :received, :manufacturer_id,
                     :receiving_date, :spec, :wf_state, :supplier_id, :unit, :unit_price, :void, :wfid, :customer_id, :status_id, :shipping_cost, :tax, :total, :misc_cost, :brief_note,
-                    :total, :void_nopudate, :received_noupdate, :customer_name, :requested_by_name, :purchasing_name, :status_name, :supplier_name, :wf_comment, :id_noupdate,
+                    :total, :void_nopudate, :received_noupdate, :customer_name, :requested_by_name, :purchasing_name, :status_name, :supplier_name, :wf_comment, :id_noupdate, :project_name,
                     :as => :role_update
 
     attr_accessor   :project_id_s, :start_date_s, :end_date_s, :purchasing_id_s, :customer_id_s, :eng_id_s,

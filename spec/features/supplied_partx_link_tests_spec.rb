@@ -111,6 +111,13 @@ describe "LinkTests" do
       click_link 'Edit'
       page.should have_content('Edit Part')
       #save_and_open_page
+      fill_in 'part_name', :with => 'new name'
+      click_button "Save"
+      #bad data
+      fill_in 'part_name', :with => ''
+      click_button "Save"
+      save_and_open_page
+      
       visit parts_path
       click_link task.id.to_s
       #save_and_open_page
