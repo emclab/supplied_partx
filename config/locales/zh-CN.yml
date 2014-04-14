@@ -82,3 +82,6 @@ zh-CN:
   Qty Unit : '数量单位'
   Qty/Unit : '数量/单位'
   Completed? : '完成？'
+  Payment Requests : '请款'
+  Submit Purchasing: '提交审批'
+  Initial State : '待审批'

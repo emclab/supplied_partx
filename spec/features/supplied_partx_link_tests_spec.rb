@@ -91,6 +91,8 @@ describe "LinkTests" do
       :sql_code => "")
       ua1 = FactoryGirl.create(:user_access, :action => 'list_open_process', :resource => 'supplied_partx_parts', :role_definition_id => @role.id, :rank => 1,
       :sql_code => "SuppliedPartx::Part.where(:void => false).order('created_at DESC')")
+      ua1 = FactoryGirl.create(:user_access, :action => 'index_supplied_partx', :resource => 'payment_requestx_payment_requests', :role_definition_id => @role.id, :rank => 1,
+      :sql_code => "PaymentRequestx::PaymentRequest.where(:void => false).order('created_at DESC')")
       @pur_sta = FactoryGirl.create(:commonx_misc_definition, 'for_which' => 'part_purchasing_status')
       @cust = FactoryGirl.create(:kustomerx_customer) 
       @supplier = FactoryGirl.create(:supplierx_supplier)
@@ -116,6 +118,12 @@ describe "LinkTests" do
       #bad data
       fill_in 'part_name', :with => ''
       click_button "Save"
+      save_and_open_page
+      
+      #to payment request
+      visit parts_path
+      save_and_open_page
+      click_link 'Payment Requests'
       save_and_open_page
       
       visit parts_path
