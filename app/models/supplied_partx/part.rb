@@ -7,7 +7,7 @@ module SuppliedPartx
     workflow do
       wf = Authentify::AuthentifyUtility.find_config_const('part_wf_pdef', 'supplied_partx')
       if Authentify::AuthentifyUtility.find_config_const('wf_pdef_in_config') == 'true' && wf.present?
-        eval(wf) #if wf.present? #&& self.wf_state.present? 
+        eval(wf)
       elsif Rails.env.test?   
         state :initial_state do
           event :submit, :transitions_to => :entering_receiving_date
