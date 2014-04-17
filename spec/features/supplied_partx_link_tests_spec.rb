@@ -91,8 +91,6 @@ describe "LinkTests" do
       :sql_code => "")
       ua1 = FactoryGirl.create(:user_access, :action => 'list_open_process', :resource => 'supplied_partx_parts', :role_definition_id => @role.id, :rank => 1,
       :sql_code => "SuppliedPartx::Part.where(:void => false).order('created_at DESC')")
-      ua1 = FactoryGirl.create(:user_access, :action => 'index_supplied_partx', :resource => 'payment_requestx_payment_requests', :role_definition_id => @role.id, :rank => 1,
-      :sql_code => "PaymentRequestx::PaymentRequest.where(:void => false).order('created_at DESC')")
       @pur_sta = FactoryGirl.create(:commonx_misc_definition, 'for_which' => 'part_purchasing_status')
       @cust = FactoryGirl.create(:kustomerx_customer) 
       @supplier = FactoryGirl.create(:supplierx_supplier)
@@ -106,6 +104,8 @@ describe "LinkTests" do
       click_button 'Login'
     end
     it "works! (now write some real specs)" do
+      ua1 = FactoryGirl.create(:user_access, :action => 'index', :resource => 'payment_requestx_payment_requests', :role_definition_id => @role.id, :rank => 1,
+      :sql_code => "PaymentRequestx::PaymentRequest.where(:void => false).order('created_at DESC')")
       task = FactoryGirl.create(:supplied_partx_part, :project_id => @proj.id, :supplier_id => @supplier.id, :manufacturer_id => @mfg.id)
       visit parts_path
       #save_and_open_page
@@ -156,6 +156,16 @@ describe "LinkTests" do
       fill_in 'part_spec', :with => 'spec'
       select('piece', :from => 'part_unit') 
       click_button 'Save'
+    end
+    
+    it "should display payment request for subaction supplied_partx" do
+      ua1 = FactoryGirl.create(:user_access, :action => 'index_supplied_partx', :resource => 'payment_requestx_payment_requests', :role_definition_id => @role.id, :rank => 1,
+      :sql_code => "PaymentRequestx::PaymentRequest.where(:void => false, :resource_string => 'supplied_partx/parts').order('created_at DESC')")
+      task = FactoryGirl.create(:supplied_partx_part, :project_id => @proj.id, :supplier_id => @supplier.id, :manufacturer_id => @mfg.id)
+      visit parts_path
+      save_and_open_page
+      click_link 'Payment Requests'
+      save_and_open_page
     end
   end
 end

@@ -10,6 +10,7 @@ zh-CN:
   Data Error. Not Updated! : '数据错误。信息无法更新！'
   Duplicate Product Name : '同一项目外购件不能重名！'
   Parts  : '外购件一览'
+  Part : '外购件'
   New Part  : '新外购件'
   Update Part : '更新外购件信息'
   Show Part : '外购件信息'
