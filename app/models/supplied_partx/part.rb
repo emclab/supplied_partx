@@ -52,11 +52,11 @@ module SuppliedPartx
                     :total, :void_nopudate, :received_noupdate, :customer_name, :requested_by_name, :purchasing_name, :status_name, :supplier_name, :wf_comment, :id_noupdate, :project_name,
                     :as => :role_update
 
-    attr_accessor   :project_id_s, :start_date_s, :end_date_s, :purchasing_id_s, :customer_id_s, :eng_id_s,
+    attr_accessor   :project_id_s, :start_date_s, :end_date_s, :purchasing_id_s, :customer_id_s, :eng_id_s, :name_s, :spec_s, :part_num_s, 
                     :supplier_id_s, :delivered_s, :time_frame_s, :keyword_s, :status_id_s, :requested_by_id_s, :manufacturer_id_s
 
     attr_accessible :project_id_s, :start_date_s, :end_date_s, :purchasing_id_s, :customer_id_s, :eng_id_s, :status_id_s, :manufacturer_id_s,
-                    :supplier_id_s, :delivered_s, :keyword_s, :requested_by_id_s, :as => :role_search_stats
+                    :supplier_id_s, :delivered_s, :keyword_s, :requested_by_id_s, :name_s, :spec_s, :part_num_s, :as => :role_search_stats
 
     belongs_to :last_updated_by, :class_name => 'Authentify::User'
     belongs_to :purchasing, :class_name => 'Authentify::User'
