@@ -41,18 +41,19 @@ module SuppliedPartx
     end
     
     attr_accessor :supplier_name, :project_name, :void_nopudate, :received_noupdate, :customer_name, :requested_by_name, :purchasing_name, :status_name, :id_noupdate, :wf_comment,
-                  :manufacturer_name
+                  :manufacturer_name, :purchase_order_id_noupdate
     attr_accessible :actual_receiving_date, :purchasing_id, :requested_by_id, :last_updated_by_id, :name, :order_date, :part_num, :project_id, :qty, :received, :manufacturer_id,
                     :receiving_date, :spec, :wf_state, :supplier_id, :unit, :unit_price, :void, :wfid, :customer_id, :status_id, :shipping_cost, :tax, :total, :misc_cost,
-                    :total, :brief_note,
+                    :total, :brief_note, :purchase_order_id,
                     :customer_name, :project_name,
                     :as => :role_new
     attr_accessible :actual_receiving_date, :purchasing_id, :requested_by_id, :last_updated_by_id, :name, :order_date, :part_num, :project_id, :qty, :received, :manufacturer_id,
                     :receiving_date, :spec, :wf_state, :supplier_id, :unit, :unit_price, :void, :wfid, :customer_id, :status_id, :shipping_cost, :tax, :total, :misc_cost, :brief_note,
                     :total, :void_nopudate, :received_noupdate, :customer_name, :requested_by_name, :purchasing_name, :status_name, :supplier_name, :wf_comment, :id_noupdate, :project_name,
+                    :purchase_order_id, :purchase_order_id_noupdate,
                     :as => :role_update
 
-    attr_accessor   :project_id_s, :start_date_s, :end_date_s, :purchasing_id_s, :customer_id_s, :eng_id_s, :name_s, :spec_s, :part_num_s, 
+    attr_accessor   :project_id_s, :start_date_s, :end_date_s, :purchasing_id_s, :customer_id_s, :eng_id_s, :name_s, :spec_s, :part_num_s, :purchase_order_id_s,
                     :supplier_id_s, :delivered_s, :time_frame_s, :keyword_s, :status_id_s, :requested_by_id_s, :manufacturer_id_s
 
     attr_accessible :project_id_s, :start_date_s, :end_date_s, :purchasing_id_s, :customer_id_s, :eng_id_s, :status_id_s, :manufacturer_id_s,
@@ -66,6 +67,7 @@ module SuppliedPartx
     belongs_to :supplier, :class_name => SuppliedPartx.supplier_class.to_s
     belongs_to :customer, :class_name => SuppliedPartx.customer_class.to_s
     belongs_to :manufacturer, :class_name => SuppliedPartx.manufacturer_class.to_s
+    belongs_to :purchase_order, :class_name => SuppliedPartx.purchase_order_class.to_s
 
     validates :name, :presence => true, :uniqueness => {:scope => :project_id, :case_sensitive => false, :message => I18n.t('Duplicate Product Name') }
     validates_numericality_of :project_id, :customer_id, :qty, :requested_by_id, :greater_than => 0, :only_integer => true    
