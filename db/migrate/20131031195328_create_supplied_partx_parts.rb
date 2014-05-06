@@ -3,7 +3,7 @@ class CreateSuppliedPartxParts < ActiveRecord::Migration
     create_table :supplied_partx_parts do |t|
       t.string :name
       t.string :part_num
-      t.string :spec
+      t.text :part_spec
       t.integer :project_id
       t.integer :qty
       t.string :unit
@@ -17,7 +17,6 @@ class CreateSuppliedPartxParts < ActiveRecord::Migration
       t.timestamps
       t.integer :requested_by_id
       t.date :actual_receiving_date
-      t.string :wfid
       t.string :wf_state
       t.boolean :void, :default => false
       t.integer :customer_id
@@ -34,13 +33,12 @@ class CreateSuppliedPartxParts < ActiveRecord::Migration
     
     add_index :supplied_partx_parts, :name
     add_index :supplied_partx_parts, :project_id
-    add_index :supplied_partx_parts, :wfid
     add_index :supplied_partx_parts, :wf_state
     add_index :supplied_partx_parts, :supplier_id
     add_index :supplied_partx_parts, :purchasing_id
     add_index :supplied_partx_parts, :requested_by_id
     add_index :supplied_partx_parts, :void
-    add_index :supplied_partx_parts, :spec
+    add_index :supplied_partx_parts, :part_spec
     add_index :supplied_partx_parts, :customer_id
     add_index :supplied_partx_parts, :received
     add_index :supplied_partx_parts, :status_id

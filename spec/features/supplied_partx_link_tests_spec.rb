@@ -153,7 +153,7 @@ describe "LinkTests" do
       page.should have_content('New Part')
       fill_in 'part_name', :with => 'test'
       fill_in 'part_qty', :with => 3
-      fill_in 'part_spec', :with => 'spec'
+      fill_in 'part_part_spec', :with => 'spec'
       select('piece', :from => 'part_unit') 
       click_button 'Save'
     end
