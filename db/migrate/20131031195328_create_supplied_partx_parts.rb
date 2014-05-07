@@ -28,6 +28,8 @@ class CreateSuppliedPartxParts < ActiveRecord::Migration
       t.decimal :total, :precision => 10, :scale => 2
       t.integer :manufacturer_id
       t.integer :purchase_order_id
+      t.boolean :approved, :default => false
+      t.date :approved_date
       
     end
     
@@ -43,6 +45,7 @@ class CreateSuppliedPartxParts < ActiveRecord::Migration
     add_index :supplied_partx_parts, :received
     add_index :supplied_partx_parts, :status_id
     add_index :supplied_partx_parts, :purchase_order_id
+    add_index :supplied_partx_parts, :approved
  
   end
 end

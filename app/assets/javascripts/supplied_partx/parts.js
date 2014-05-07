@@ -4,6 +4,7 @@ $(function() {
 	$("#part_order_date").datepicker({dateFormat: 'yy-mm-dd'});
 	$("#part_receiving_date").datepicker({dateFormat: 'yy-mm-dd'});
     $("#part_actual_receiving_date").datepicker({dateFormat: 'yy-mm-dd'});
+    $("#part_approved_date").datepicker({dateFormat: 'yy-mm-dd'});
     $("#part_start_date_s").datepicker({dateFormat: 'yy-mm-dd'});
     $("#part_end_date_s").datepicker({dateFormat: 'yy-mm-dd'});
 });
