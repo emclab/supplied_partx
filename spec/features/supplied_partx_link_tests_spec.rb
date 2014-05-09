@@ -57,7 +57,7 @@ describe "LinkTests" do
       FactoryGirl.create(:engine_config, :engine_name => 'supplied_partx', :engine_version => nil, :argument_name => 'part_submit_inline', 
                          :argument_value => "<%= f.input :receiving_date, :label => t('Receiving Date') , :as => :string %>")
       FactoryGirl.create(:engine_config, :engine_name => 'supplied_partx', :engine_version => nil, :argument_name => 'validate_part_submit', 
-                         :argument_value => "validates :receiving_date, :presence => true                                             
+                         :argument_value => "errors.add(:receiving_date, I18n.t('Not be blank')) if receiving_date.blank?                                             
                                            ")
       FactoryGirl.create(:engine_config, :engine_name => 'supplied_partx', :engine_version => nil, :argument_name => 'part_wf_final_state_string', :argument_value => 'from_warehouse, delivered, rejected')
       FactoryGirl.create(:engine_config, :engine_name => '', :engine_version => nil, :argument_name => 'wf_pdef_in_config', :argument_value => 'true')
@@ -134,6 +134,20 @@ describe "LinkTests" do
       #save_and_open_page
       page.should have_content('Log')
       
+      #bad wf data
+      visit parts_path
+      #save_and_open_page
+      click_link 'Submit'
+      #save_and_open_page
+      fill_in 'part_wf_comment', :with => 'this line tests workflow'
+      fill_in 'part_receiving_date', :with => nil #'2014/01/01'
+      #save_and_open_page
+      click_button 'Save'
+      #check
+      visit parts_path
+      click_link task.id.to_s
+      #save_and_open_page
+      page.should_not have_content('this line tests workflow')
       visit parts_path
       save_and_open_page
       click_link 'Submit'
@@ -142,7 +156,12 @@ describe "LinkTests" do
       fill_in 'part_receiving_date', :with => '2014/01/01'
       #save_and_open_page
       click_button 'Save'
-      #
+      #check
+      visit parts_path
+      click_link task.id.to_s
+      #save_and_open_page
+      page.should have_content('this line tests workflow')
+      
       visit parts_path
       save_and_open_page
       click_link 'Open Process'

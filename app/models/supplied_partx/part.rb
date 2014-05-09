@@ -41,7 +41,7 @@ module SuppliedPartx
     end
     
     attr_accessor :supplier_name, :project_name, :void_nopudate, :received_noupdate, :customer_name, :requested_by_name, :purchasing_name, :status_name, :id_noupdate, :wf_comment,
-                  :manufacturer_name, :purchase_order_id_noupdate, :approved_noupdate
+                  :manufacturer_name, :purchase_order_id_noupdate, :approved_noupdate, :wf_state_noupdate, :wf_event
     attr_accessible :actual_receiving_date, :purchasing_id, :requested_by_id, :last_updated_by_id, :name, :order_date, :part_num, :project_id, :qty, :received, :manufacturer_id,
                     :receiving_date, :part_spec, :wf_state, :supplier_id, :unit, :unit_price, :void, :customer_id, :status_id, :shipping_cost, :tax, :total, :misc_cost,
                     :total, :brief_note, :purchase_order_id, :approved, :approved_date,
@@ -50,7 +50,7 @@ module SuppliedPartx
     attr_accessible :actual_receiving_date, :purchasing_id, :requested_by_id, :last_updated_by_id, :name, :order_date, :part_num, :project_id, :qty, :received, :manufacturer_id,
                     :receiving_date, :part_spec, :wf_state, :supplier_id, :unit, :unit_price, :void, :customer_id, :status_id, :shipping_cost, :tax, :total, :misc_cost, :brief_note,
                     :total, :void_nopudate, :received_noupdate, :customer_name, :requested_by_name, :purchasing_name, :status_name, :supplier_name, :wf_comment, :id_noupdate, :project_name,
-                    :purchase_order_id, :purchase_order_id_noupdate, :approved, :approved_date,
+                    :purchase_order_id, :purchase_order_id_noupdate, :approved, :approved_date, :wf_state_noupdate,
                     :as => :role_update
 
     attr_accessor   :project_id_s, :start_date_s, :end_date_s, :purchasing_id_s, :customer_id_s, :eng_id_s, :name_s, :part_spec_s, :part_num_s, :purchase_order_id_s,
@@ -80,7 +80,7 @@ module SuppliedPartx
     validate :validate_wf_input_data, :if => 'wf_state.present?' 
     
     def validate_wf_input_data
-      wf = Authentify::AuthentifyUtility.find_config_const('validate_part_' + self.wf_state, 'supplied_partx')
+      wf = Authentify::AuthentifyUtility.find_config_const('validate_part_' + self.wf_event, 'supplied_partx') if self.wf_event.present?
       if Authentify::AuthentifyUtility.find_config_const('wf_validate_in_config') == 'true' && wf.present? 
         eval(wf) 
       end
