@@ -89,4 +89,5 @@ zh-CN:
   Submit Purchasing: '提交审批'
   Initial State : '待审批'
   Part Spec : '产品规格'
-  
+  Not be blank : '不能为空'
+  Not be number : '非数字'

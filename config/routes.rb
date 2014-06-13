@@ -3,9 +3,9 @@ SuppliedPartx::Engine.routes.draw do
   resources :parts do
     collection do
       get :search
-      put :search_results
+      get :search_results
       get :stats
-      put :stats_results    
+      get :stats_results    
     end
 
 #=begin    
