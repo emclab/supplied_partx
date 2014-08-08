@@ -59,9 +59,9 @@ module SuppliedPartx
       c.should be_valid
     end
   
-    it "should reject 0 total" do
+    it "should take 0 total" do
       c = FactoryGirl.build(:supplied_partx_part, :total => 0)
-      c.should_not be_valid
+      c.should be_valid
     end
 
     it "should allow nil total" do

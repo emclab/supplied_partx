@@ -48,8 +48,8 @@
 			<td><%= prt(r, :part_num) %></td>
 			<td><%= prt(r, :part_spec) %></td>
 			<td><%= prt(r, :qty) %>/<%= prt(r, :unit) %></td>
-			<td><%= number_with_precision(prt(r, :unit_price), :precision => 2) if r.unit_price.present? %></td>
-			<td><%= number_with_precision(r.unit_price * r.qty, :precision => 2) if r.unit_price.present? %></td>
+			<td><%= prt(r, :unit_price) %></td>
+			<td><%= r.unit_price * r.qty if r.unit_price.present? %></td>
 			<td><%= r.order_date.strftime("%Y/%m/%d") if r.order_date.present? %></td>
 			<% unless has_action_right?('show', SuppliedPartx.supplier_class.to_s.underscore.pluralize) %>
 		  	  <td><%= prt(r, 'supplier.short_name') if r.supplier_id.present? %></td>

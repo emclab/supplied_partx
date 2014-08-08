@@ -73,7 +73,7 @@ module SuppliedPartx
     validates_numericality_of :project_id, :customer_id, :qty, :requested_by_id, :greater_than => 0, :only_integer => true    
     validates :unit, :part_spec, :qty, :presence => true
     validates :unit_price, :numericality => { :greater_than => 0 }, :if => 'unit_price.present?'
-    validates :total, :numericality => { :greater_than => 0 }, :if => 'total.present?'
+    validates :total, :numericality => { :greater_than_or_equal_to => 0 }, :if => 'total.present?'
     validates_numericality_of :manufacturer_id, :greater_than => 0, :only_integer => true, :if => 'manufacturer_id.present?'
     validate :dynamic_validate
     #for workflow input validation  
