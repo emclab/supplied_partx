@@ -63,6 +63,21 @@ module SuppliedPartx
       c = FactoryGirl.build(:supplied_partx_part, :total => 0)
       c.should be_valid
     end
+    
+    it "should take 0 tax" do
+      c = FactoryGirl.build(:supplied_partx_part, :tax => 0)
+      c.should be_valid
+    end
+    
+    it "should take 0 shipping_cost" do
+      c = FactoryGirl.build(:supplied_partx_part, :shipping_cost => 0)
+      c.should be_valid
+    end
+    
+    it "should take 0 misc_cost" do
+      c = FactoryGirl.build(:supplied_partx_part, :misc_cost => 0)
+      c.should be_valid
+    end
 
     it "should allow nil total" do
       c = FactoryGirl.build(:supplied_partx_part, :total => nil)

@@ -74,6 +74,9 @@ module SuppliedPartx
     validates :unit, :part_spec, :qty, :presence => true
     validates :unit_price, :numericality => { :greater_than => 0 }, :if => 'unit_price.present?'
     validates :total, :numericality => { :greater_than_or_equal_to => 0 }, :if => 'total.present?'
+    validates :tax, :numericality => { :greater_than_or_equal_to => 0 }, :if => 'tax.present?'
+    validates :misc_cost, :numericality => { :greater_than_or_equal_to => 0 }, :if => 'misc_cost.present?'
+    validates :shipping_cost, :numericality => { :greater_than_or_equal_to => 0 }, :if => 'shipping_cost.present?'
     validates_numericality_of :manufacturer_id, :greater_than => 0, :only_integer => true, :if => 'manufacturer_id.present?'
     validate :dynamic_validate
     #for workflow input validation  
