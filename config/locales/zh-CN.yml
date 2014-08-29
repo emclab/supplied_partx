@@ -71,7 +71,7 @@ zh-CN:
   Stamped : '已盖章'
   Delivered : '已到货'
   Received : '已到货'
-  From Warehouse : '有库存'
+  From Warehouse : '库存出货'
   Receive delivery : '收货'
   Receive Delivery : '收货'
   Must be unique! : '重名！'
@@ -92,3 +92,4 @@ zh-CN:
   Part Spec : '产品规格'
   Not be blank : '不能为空'
   Not be number : '非数字'
+  Be positive : '不能为负'
