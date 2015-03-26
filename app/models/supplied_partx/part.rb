@@ -78,6 +78,7 @@ module SuppliedPartx
     validates :misc_cost, :numericality => { :greater_than_or_equal_to => 0 }, :if => 'misc_cost.present?'
     validates :shipping_cost, :numericality => { :greater_than_or_equal_to => 0 }, :if => 'shipping_cost.present?'
     validates_numericality_of :manufacturer_id, :greater_than => 0, :only_integer => true, :if => 'manufacturer_id.present?'
+    validates_numericality_of :supplier_id, :greater_than => 0, :only_integer => true, :if => 'supplier_id.present?'
     validate :dynamic_validate
     #for workflow input validation  
     validate :validate_wf_input_data, :if => 'wf_state.present?' 
