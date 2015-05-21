@@ -30,6 +30,11 @@ class CreateSuppliedPartxParts < ActiveRecord::Migration
       t.integer :purchase_order_id
       t.boolean :approved, :default => false
       t.date :approved_date
+      t.intger :approved_by_id
+      t.boolean :delivered
+      t.date :delivery_date
+      t.integer :delivery_received_by_id
+      t.string :brand
       
     end
     
