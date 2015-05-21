@@ -72,17 +72,17 @@ module SuppliedPartx
     belongs_to :purchase_order, :class_name => SuppliedPartx.purchase_order_class.to_s
 
     validates :name, :presence => true, :uniqueness => {:scope => :project_id, :case_sensitive => false, :message => I18n.t('Duplicate Product Name') }
-    validates_numericality_of :project_id, :customer_id, :qty, :requested_by_id, :greater_than => 0, :only_integer => true    
+    validates :project_id, :customer_id, :qty, :requested_by_id, :numericality => {:greater_than => 0, :only_integer => true}    
     validates :unit, :part_spec, :qty, :presence => true
     validates :unit_price, :numericality => { :greater_than => 0 }, :if => 'unit_price.present?'
     validates :total, :numericality => { :greater_than_or_equal_to => 0 }, :if => 'total.present?'
     validates :tax, :numericality => { :greater_than_or_equal_to => 0 }, :if => 'tax.present?'
     validates :misc_cost, :numericality => { :greater_than_or_equal_to => 0 }, :if => 'misc_cost.present?'
     validates :shipping_cost, :numericality => { :greater_than_or_equal_to => 0 }, :if => 'shipping_cost.present?'
-    validates_numericality_of :manufacturer_id, :greater_than => 0, :only_integer => true, :if => 'manufacturer_id.present?'
-    validates_numericality_of :supplier_id, :greater_than => 0, :only_integer => true, :if => 'supplier_id.present?'
-    validates_numericality_of :approved_by_id, :greater_than => 0, :only_integer => true, :if => 'approved_by_id.present?'
-    validates_numericality_of :delivery_received_by_id, :greater_than => 0, :only_integer => true, :if => 'delivery_received_by_id.present?'
+    validates :manufacturer_id, :numericality => {:greater_than => 0, :only_integer => true}, :if => 'manufacturer_id.present?'
+    validates :supplier_id, :numericality => {:greater_than => 0, :only_integer => true}, :if => 'supplier_id.present?'
+    validates :approved_by_id, :numericality => {:greater_than => 0, :only_integer => true}, :if => 'approved_by_id.present?'
+    validates :delivery_received_by_id, :numericality => {:greater_than => 0, :only_integer => true}, :if => 'delivery_received_by_id.present?'
     validate :dynamic_validate
     #for workflow input validation  
     validate :validate_wf_input_data, :if => 'wf_state.present?' 
