@@ -12,7 +12,7 @@ class CreateSuppliedPartxParts < ActiveRecord::Migration
       t.integer :supplier_id
       t.date :order_date
       t.date :receiving_date
-      t.boolean :received, :default => false
+      t.boolean :received
       t.integer :last_updated_by_id
       t.timestamps
       t.integer :requested_by_id
@@ -31,9 +31,7 @@ class CreateSuppliedPartxParts < ActiveRecord::Migration
       t.boolean :approved, :default => false
       t.date :approved_date
       t.integer :approved_by_id
-      t.boolean :delivered
-      t.date :delivery_date
-      t.integer :delivery_received_by_id
+      t.integer :received_by_id
       t.string :brand
       
     end
@@ -51,6 +49,6 @@ class CreateSuppliedPartxParts < ActiveRecord::Migration
     add_index :supplied_partx_parts, :status_id
     add_index :supplied_partx_parts, :purchase_order_id
     add_index :supplied_partx_parts, :approved
- 
+    add_index :supplied_partx_parts, :received
   end
 end
