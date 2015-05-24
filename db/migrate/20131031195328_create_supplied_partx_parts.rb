@@ -49,7 +49,6 @@ class CreateSuppliedPartxParts < ActiveRecord::Migration
     add_index :supplied_partx_parts, :status_id
     add_index :supplied_partx_parts, :purchase_order_id
     add_index :supplied_partx_parts, :approved
-    add_index :supplied_partx_parts, :received
  
   end
 end
