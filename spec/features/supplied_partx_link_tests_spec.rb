@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe "LinkTests" do
+RSpec.describe "LinkTests", type: :request do
   describe "GET /supplied_partx_link_tests" do
     mini_btn = 'btn btn-mini '
     ActionView::CompiledTemplates::BUTTONS_CLS =
@@ -19,7 +19,11 @@ describe "LinkTests" do
          'inverse'      => 'btn btn-inverse',
          'mini-inverse' => mini_btn + 'btn btn-inverse',
          'link'         => 'btn btn-link',
-         'mini-link'    => mini_btn +  'btn btn-link'
+         'mini-link'    => mini_btn +  'btn btn-link',
+         'right-span#'         => '2', 
+               'left-span#'         => '6', 
+               'offset#'         => '2',
+               'form-span#'         => '4'
         }
     before(:each) do
       wf = "def submit
@@ -107,11 +111,11 @@ describe "LinkTests" do
       ua1 = FactoryGirl.create(:user_access, :action => 'index', :resource => 'payment_requestx_payment_requests', :role_definition_id => @role.id, :rank => 1,
       :sql_code => "PaymentRequestx::PaymentRequest.where(:void => false).order('created_at DESC')")
       task = FactoryGirl.create(:supplied_partx_part, :project_id => @proj.id, :supplier_id => @supplier.id, :manufacturer_id => @mfg.id)
-      visit parts_path
+      visit supplied_partx.parts_path
       #save_and_open_page
-      page.should have_content('Parts')
+      expect(page).to have_content('Parts')
       click_link 'Edit'
-      page.should have_content('Edit Part')
+      expect(page).to have_content('Update Part')
       #save_and_open_page
       fill_in 'part_name', :with => 'new name'
       click_button "Save"
@@ -121,21 +125,21 @@ describe "LinkTests" do
       save_and_open_page
       
       #to payment request
-      visit parts_path
+      visit supplied_partx.parts_path
       save_and_open_page
       click_link 'Payment Requests'
       save_and_open_page
       
-      visit parts_path
+      visit supplied_partx.parts_path
       click_link task.id.to_s
       #save_and_open_page
-      page.should have_content('Part Info')
+      expect(page).to have_content('Part Info')
       click_link 'New Log'
       #save_and_open_page
-      page.should have_content('Log')
+      expect(page).to have_content('Log')
       
       #bad wf data
-      visit parts_path
+      visit supplied_partx.parts_path
       #save_and_open_page
       click_link 'Submit'
       #save_and_open_page
@@ -144,11 +148,11 @@ describe "LinkTests" do
       #save_and_open_page
       click_button 'Save'
       #check
-      visit parts_path
+      visit supplied_partx.parts_path
       click_link task.id.to_s
       #save_and_open_page
-      page.should_not have_content('this line tests workflow')
-      visit parts_path
+      expect(page).not_to have_content('this line tests workflow')
+      visit supplied_partx.parts_path
       save_and_open_page
       click_link 'Submit'
       save_and_open_page
@@ -157,34 +161,40 @@ describe "LinkTests" do
       #save_and_open_page
       click_button 'Save'
       #check
-      visit parts_path
+      visit supplied_partx.parts_path
       click_link task.id.to_s
       #save_and_open_page
-      page.should have_content('this line tests workflow')
+      expect(page).to have_content('this line tests workflow')
       
-      visit parts_path
+      visit supplied_partx.parts_path
       save_and_open_page
       click_link 'Open Process'
-      page.should have_content('Parts')
+      expect(page).to have_content('Parts')
       
-      visit new_part_path(:project_id => @proj.id)
+      visit supplied_partx.new_part_path(:project_id => @proj.id)
       #save_and_open_page
-      page.should have_content('New Part')
-      fill_in 'part_name', :with => 'test'
+      expect(page).to have_content('New Part')
+      fill_in 'part_name', :with => 'test new'
       fill_in 'part_qty', :with => 3
       fill_in 'part_part_spec', :with => 'spec'
       select('piece', :from => 'part_unit') 
       click_button 'Save'
+      
+      #
+      visit supplied_partx.parts_path(:project_id => @proj.id)
+      #save_and_open_page
+      expect(page).to have_content('test new')
     end
     
     it "should display payment request for subaction supplied_partx" do
       ua1 = FactoryGirl.create(:user_access, :action => 'index_supplied_partx', :resource => 'payment_requestx_payment_requests', :role_definition_id => @role.id, :rank => 1,
       :sql_code => "PaymentRequestx::PaymentRequest.where(:void => false, :resource_string => 'supplied_partx/parts').order('created_at DESC')")
       task = FactoryGirl.create(:supplied_partx_part, :project_id => @proj.id, :supplier_id => @supplier.id, :manufacturer_id => @mfg.id)
-      visit parts_path
+      visit supplied_partx.parts_path
       save_and_open_page
       click_link 'Payment Requests'
-      save_and_open_page
+      #save_and_open_page
+      expect(page).to have_content('Payment Requests')
     end
   end
 end

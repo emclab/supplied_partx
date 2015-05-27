@@ -42,6 +42,7 @@ module SuppliedPartx
     
     attr_accessor :supplier_name, :project_name, :void_nopudate, :received_noupdate, :customer_name, :requested_by_name, :purchasing_name, :status_name, :id_noupdate, :wf_comment,
                   :manufacturer_name, :purchase_order_id_noupdate, :approved_noupdate, :wf_state_noupdate, :wf_event
+=begin
     attr_accessible :actual_receiving_date, :purchasing_id, :requested_by_id, :last_updated_by_id, :name, :order_date, :part_num, :project_id, :qty, :received, :manufacturer_id,
                     :receiving_date, :part_spec, :wf_state, :supplier_id, :unit, :unit_price, :void, :customer_id, :status_id, :shipping_cost, :tax, :total, :misc_cost,
                     :total, :brief_note, :purchase_order_id, :approved, :approved_date, :approved_by_id, :received_by_id, :brand,
@@ -58,6 +59,7 @@ module SuppliedPartx
 
     attr_accessible :project_id_s, :start_date_s, :end_date_s, :purchasing_id_s, :customer_id_s, :eng_id_s, :status_id_s, :manufacturer_id_s, :approved_s,
                     :supplier_id_s, :delivered_s, :keyword_s, :requested_by_id_s, :name_s, :part_spec_s, :part_num_s, :as => :role_search_stats
+=end
 
     belongs_to :last_updated_by, :class_name => 'Authentify::User'
     belongs_to :purchasing, :class_name => 'Authentify::User'

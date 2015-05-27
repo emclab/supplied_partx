@@ -2,8 +2,8 @@ require_dependency "supplied_partx/application_controller"
 
 module SuppliedPartx
   class PartsController < ApplicationController
-    before_filter :require_employee
-    before_filter :load_parent_record
+    before_action :require_employee
+    before_action :load_parent_record
         
     def index
       @title = t('Parts')
@@ -22,7 +22,7 @@ module SuppliedPartx
     end
   
     def create
-      @part = SuppliedPartx::Part.new(params[:part], :as => :role_new)
+      @part = SuppliedPartx::Part.new(new_params)
       @part.last_updated_by_id = session[:user_id]
       @part.requested_by_id = session[:user_id]
       if @part.save
@@ -50,7 +50,7 @@ module SuppliedPartx
     def update
       @part = SuppliedPartx::Part.find_by_id(params[:id])
       @part.last_updated_by_id = session[:user_id]
-      if @part.update_attributes(params[:part], :as => :role_update)
+      if @part.update_attributes(edit_params)
         redirect_to URI.escape(SUBURI + "/authentify/view_handler?index=0&msg=Successfully Updated!")
       else
         @qty_unit = find_config_const('piece_unit').split(',').map(&:strip)
@@ -78,6 +78,20 @@ module SuppliedPartx
       @customer = SuppliedPartx.customer_class.find_by_id(@project.customer_id) if params[:project_id].present?
       @project = SuppliedPartx.project_class.find_by_id(SuppliedPartx::Part.find_by_id(params[:id]).project_id) if params[:id].present?
       @customer = SuppliedPartx.customer_class.find_by_id(SuppliedPartx::Part.find_by_id(params[:id]).customer_id) if params[:id].present?
+    end
+    
+    private
+    
+    def new_params
+      params.require(:part).permit(:actual_receiving_date, :purchasing_id, :requested_by_id, :name, :order_date, :part_num, :project_id, :qty, :received, :manufacturer_id,
+                    :receiving_date, :part_spec, :wf_state, :supplier_id, :unit, :unit_price, :void, :customer_id, :status_id, :shipping_cost, :tax, :total, :misc_cost,
+                    :total, :brief_note, :purchase_order_id, :brand)
+    end
+    
+    def edit_params
+      params.require(:part).permit(:actual_receiving_date, :purchasing_id, :requested_by_id, :last_updated_by_id, :name, :order_date, :part_num, :project_id, :qty, :received, :manufacturer_id,
+                    :receiving_date, :part_spec, :wf_state, :supplier_id, :unit, :unit_price, :void, :customer_id, :status_id, :shipping_cost, :tax, :total, :misc_cost, :brief_note,
+                    :total, :purchase_order_id, :approved, :approved_date, :approved_by_id, :received_by_id, :brand)
     end
   end
 end

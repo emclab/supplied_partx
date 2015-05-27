@@ -15,17 +15,17 @@ SuppliedPartx::Engine.routes.draw do
     elsif Rails.env.test?
       member do
         get :event_action
-        put :submit
-        put :enter_receiving_date
-        put :checkout_from_warehouse
-        put :enter_purchasing_data
-        put :manager_accept
-        put :manager_reject
-        put :ceo_accept
-        put :ceo_reject
-        put :ceo_rewind
-        put :stamp
-        put :receive_delivery
+        patch :submit
+        patch :enter_receiving_date
+        patch :checkout_from_warehouse
+        patch :enter_purchasing_data
+        patch :manager_accept
+        patch :manager_reject
+        patch :ceo_accept
+        patch :ceo_reject
+        patch :ceo_rewind
+        patch :stamp
+        patch :receive_delivery
         
       end
       
